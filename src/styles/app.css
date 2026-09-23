@@ -1,0 +1,468 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--secondary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---------- Site header ---------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  background: var(--surface);
+  border-bottom: 3px solid var(--secondary);
+}
+
+.logo {
+  color: var(--text);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--secondary);
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.message {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+/* ---------- Puzzle header ---------- */
+
+.puzzle-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.pill {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+.pill span {
+  padding: 0.15rem 0.75rem;
+}
+
+.pill .pill-theme {
+  background: var(--secondary);
+  color: var(--text-on-secondary);
+  font-weight: 600;
+}
+
+.puzzle-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.puzzle-title {
+  margin: 0.5rem 0;
+  font-size: clamp(1.3rem, 4vw, 1.9rem);
+  font-weight: 650;
+}
+
+.nav-btn {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-btn:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.nav-btn--disabled {
+  opacity: 0.35;
+}
+
+/* ---------- Layout ---------- */
+
+.game-area {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .game-area {
+    grid-template-columns: 2fr 3fr;
+    align-items: start;
+  }
+}
+
+/* ---------- Ladder ---------- */
+
+.ladder {
+  border-inline: 6px solid var(--rail);
+  background: var(--surface);
+  font-family: ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace;
+  text-transform: uppercase;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  border-top: 2px solid var(--rail);
+  color: var(--row-text);
+  font-size: max(16px, 1.1rem); /* 16px+ also prevents zoom on iOS inputs */
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.row:first-child {
+  border-top: none;
+}
+
+.row--complete {
+  background: var(--row-complete-bg);
+}
+
+.row--current {
+  background: var(--row-current-bg);
+}
+
+.row--locked {
+  gap: 1.1rem;
+  background: var(--row-locked-bg);
+  font-size: 0.9rem;
+}
+
+.row--clickable {
+  width: 100%;
+  border-inline: 0;
+  border-bottom: 0;
+  font-family: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+
+.row--clickable:hover {
+  background: var(--row-locked-hover-bg);
+}
+
+.letter-blocks {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.letter-block {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--letter-block);
+}
+
+.letter-count {
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.row--active {
+  background: var(--row-active-bg);
+}
+
+.row--active input {
+  width: 100%;
+  height: 52px;
+  padding: 0 5.5rem;
+  border: 0;
+  outline: none;
+  background: transparent;
+  caret-color: var(--secondary);
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.badge {
+  position: absolute;
+  left: 0.5rem;
+  padding: 0.05rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.row-actions {
+  position: absolute;
+  right: 0.4rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-raised);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.icon-btn:hover:not(:disabled) {
+  border-color: var(--secondary);
+}
+
+.icon-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.flip-btn {
+  width: 100%;
+  padding: 0.6rem;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.85rem;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.flip-btn:hover:not(:disabled) {
+  color: var(--secondary);
+}
+
+.flip-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ---------- Hints ---------- */
+
+.hints-col section + section {
+  margin-top: 1.75rem;
+}
+
+.section-title {
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hint-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.hint-card--highlighted {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 1px var(--secondary);
+}
+
+.hint-card--solved {
+  opacity: 0.55;
+}
+
+.hints-all .hint-card--solved {
+  opacity: 1;
+}
+
+.hint-text {
+  margin: 0;
+  line-height: 1.9;
+}
+
+.hint-word {
+  padding: 0.05em 0.12em;
+  border-radius: 3px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font-family: ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.hint-word--prev {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.hint-word--answer {
+  background: var(--secondary);
+  color: var(--text-on-secondary);
+}
+
+.hint-blank {
+  display: inline-block;
+  width: 2.5em;
+  margin: 0 0.15em;
+  border-bottom: 2px solid var(--text-muted);
+}
+
+.about-text {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+/* ---------- Completion ---------- */
+
+.completion {
+  margin-bottom: 1.75rem;
+  padding: 1rem;
+  border: 2px solid var(--secondary);
+  border-radius: 10px;
+  background: var(--surface);
+  text-align: center;
+}
+
+.completion p {
+  margin: 0 0 0.4rem;
+}
+
+.completion-title {
+  color: var(--secondary);
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.completion-balls {
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+}
+
+.completion-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 0.55rem 1.2rem;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  border: 0;
+  background: var(--secondary);
+  color: var(--text-on-secondary);
+}
+
+.btn-primary:hover {
+  background: var(--secondary-strong);
+}
+
+.btn-secondary {
+  border: 1px solid var(--border);
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  border-color: var(--secondary);
+}
+
+/* ---------- Modal ---------- */
+
+.modal {
+  /* The dialog lives inside a ladder row; reset the ladder's typography. */
+  max-width: min(90vw, 360px);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.5);
+}
+
+.modal::backdrop {
+  background: rgb(9 21 43 / 0.7);
+}
+
+.modal-box {
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+}
+
+.modal-title {
+  margin: 0 0 0.4rem;
+  color: var(--secondary);
+  font-size: 1.25rem;
+}
+
+.modal-text {
+  margin: 0 0 1.25rem;
+  color: var(--text-muted);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}

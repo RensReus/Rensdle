@@ -1,0 +1,72 @@
+[
+    {
+        "id": 0,
+        "hint": "Verander een letter voor iets dat kan uitkomen",
+        "answer": "wens"
+    },
+    {
+        "id": 1,
+        "hint": "Stop een ui in $prev$ en herschik voor dagelijkse berichtgeving",
+        "answer": "nieuws"
+    },
+    {
+        "id": 2,
+        "hint": "$answer$baden komen vaak in het $prev$",
+        "answer": "bloed"
+    },
+    {
+        "id": 3,
+        "hint": "$prev$, $answer$ en tranen",
+        "answer": "Zweet"
+    },
+    {
+        "id": 4,
+        "hint": "De zanger van de vorige hint",
+        "answer": "Hazes"
+    },
+    {
+        "id": 5,
+        "hint": "Dit getal vind je in $prev$",
+        "answer": "zes"
+    },
+    {
+        "id": 6,
+        "hint": "Een $prev$ op school is?",
+        "answer": "voldoende"
+    },
+    {
+        "id": 7,
+        "hint": "Als je $prev$ hebt gegeten krijg je geen?",
+        "answer": "trek"
+    },
+    {
+        "id": 8,
+        "hint": "$prev$$answer$, een soort snoepgoed",
+        "answer": "drop"
+    },
+    {
+        "id": 9,
+        "hint": "$prev$ is $answer$",
+        "answer": "zwart"
+    },
+    {
+        "id": 10,
+        "hint": "Tegenovergestelde van $prev$",
+        "answer": "wit"
+    },
+    {
+        "id": 11,
+        "hint": "De kleur van een $answer$ is traditioneel $prev$",
+        "answer": "bruidsjurk"
+    },
+    {
+        "id": 12,
+        "hint": "De draagster van een $prev$ ruikt met haar?",
+        "answer": "neus"
+    },
+    {
+        "id": 99,
+        "hint": "Een $answer$ heeft een grote $prev$",
+        "answer": "reus"
+    }
+]

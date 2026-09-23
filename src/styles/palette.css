@@ -1,0 +1,75 @@
+/*
+ * Rensdle colour palette — dark only: dark blue with yellow accents.
+ * Components should use the semantic tokens at the bottom, not the raw scales.
+ */
+:root {
+  color-scheme: dark;
+
+  /* Blue scale */
+  --blue-50: #eef4fb;
+  --blue-100: #d6e4f5;
+  --blue-200: #adc8eb;
+  --blue-300: #7fa7dd;
+  --blue-400: #5286cc;
+  --blue-500: #3268b5;
+  --blue-600: #245293;
+  --blue-700: #1c4076;
+  --blue-800: #152f59;
+  --blue-900: #0f2242;
+  --blue-950: #09152b;
+
+  /* Yellow scale */
+  --yellow-50: #faf6e9;
+  --yellow-100: #f2e9c9;
+  --yellow-200: #e6d8a0;
+  --yellow-300: #d9c47a;
+  --yellow-400: #cbae57;
+  --yellow-500: #b8983f;
+  --yellow-600: #9a7d31;
+  --yellow-700: #7a6327;
+  --yellow-800: #5b4a1e;
+  --yellow-900: #3f3416;
+
+  /* Neutral scale */
+  --gray-300: #cbd2dc;
+  --gray-500: #6b7686;
+  --gray-600: #4e5866;
+  --gray-700: #373f4b;
+  --gray-800: #262c35;
+
+  /* Slate */
+  --slate-600: #354a68;
+
+  /* Supporting hues */
+  --red-400: #f87171;
+  --green-400: #4ade80;
+  --orange-400: #fb923c;
+  --purple-400: #c084fc;
+
+  /* Brand */
+  --primary: var(--blue-500);
+  --primary-strong: var(--blue-400);
+  --secondary: var(--yellow-400);
+  --secondary-strong: var(--yellow-300);
+
+  /* Semantic tokens */
+  --bg: var(--blue-950);
+  --surface: var(--blue-900);
+  --surface-raised: var(--blue-800);
+  --border: var(--blue-700);
+  --rail: var(--yellow-700);
+  --text: var(--blue-50);
+  --text-muted: var(--blue-300);
+  --text-on-secondary: var(--blue-950);
+  --focus: var(--yellow-300);
+  --danger: var(--red-400);
+  --success: var(--green-400);
+
+  --row-active-bg: var(--slate-600);
+  --row-current-bg: var(--blue-700);
+  --row-locked-bg: var(--gray-800);
+  --row-locked-hover-bg: var(--gray-700);
+  --letter-block: var(--gray-500);
+  --row-complete-bg: var(--surface);
+  --row-text: var(--text);
+}
