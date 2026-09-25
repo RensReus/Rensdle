@@ -1,15 +1,16 @@
-/** One entry in puzzles/puzzles.json. */
-export interface PuzzleMeta {
+/** A puzzle file in /puzzles. */
+export interface PuzzleFile {
   id: number
   start: string
-  /** File name (without .json) in /puzzles, also usable in the URL. */
+  /** Usable in the URL. */
   name: string
   about?: string | null
   theme?: string | null
+  hints: Hint[]
 }
 
 /**
- * One entry in puzzles/<name>.json.
+ * One entry in the `hints` list of a puzzle file.
  * Hint `id` k links word k to word k+1 (word 0 is the start word).
  * `$prev$` is word k, `$answer$` is word k+1.
  */
@@ -19,8 +20,7 @@ export interface Hint {
   answer: string
 }
 
-export interface Puzzle extends PuzzleMeta {
-  hints: Hint[]
+export interface Puzzle extends PuzzleFile {
   /** start + every answer in chain order; the last one is the end word. */
   words: string[]
 }

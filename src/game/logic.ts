@@ -115,9 +115,12 @@ export type HintSegment =
  * Fills `$prev$` / `$answer$`.
  * Solved hints show their own words. Open hints all show the current word:
  * going down it replaces `$prev$`, going up it replaces `$answer$`; the other becomes a blank.
+ * Hints without `$answer$` get ` → $answer$` appended when solved or when solving up.
  */
 export function renderHint(hint: Hint, words: string[], solved: boolean, f: Frontiers): HintSegment[] {
-  return hint.hint
+  const showAnswer = !hint.hint.includes('$answer$') && (solved || f.direction === 'up')
+  const template = showAnswer ? `${hint.hint} → $answer$` : hint.hint
+  return template
     .split(/(\$prev\$|\$answer\$)/)
     .filter((part) => part !== '')
     .map((part): HintSegment => {
