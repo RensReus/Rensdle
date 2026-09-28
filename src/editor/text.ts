@@ -2,6 +2,7 @@
 export const text = {
   editor: 'Editor',
   edit: 'Edit',
+  clearPuzzle: 'Clear',
   unsaved: 'unsaved',
   new: 'New',
   save: 'Save',

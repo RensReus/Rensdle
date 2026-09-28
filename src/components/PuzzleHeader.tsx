@@ -4,7 +4,7 @@ import { getNeighbours } from '../data/puzzleParser'
 import { nl } from '../i18n/nl'
 import { text as editorText } from '../editor/text'
 
-export function PuzzleHeader({ puzzle }: { puzzle: Puzzle }) {
+export function PuzzleHeader({ puzzle, onClear }: { puzzle: Puzzle; onClear: () => void }) {
   const end = puzzle.words[puzzle.words.length - 1]
   const title = <h2 className="puzzle-title">{nl.title(puzzle.start, end)}</h2>
 
@@ -28,9 +28,14 @@ export function PuzzleHeader({ puzzle }: { puzzle: Puzzle }) {
         {puzzle.theme && <span className="pill-theme">{puzzle.theme}</span>}
       </div>
       {import.meta.env.DEV && (
-        <Link className="dev-link dev-link--edit" to={`/editor?id=${puzzle.id}`}>
-          {editorText.edit}
-        </Link>
+        <span className="dev-links">
+          <Link className="dev-link" to={`/editor?id=${puzzle.id}`}>
+            {editorText.edit}
+          </Link>
+          <button type="button" className="dev-link" onClick={onClear}>
+            {editorText.clearPuzzle}
+          </button>
+        </span>
       )}
       <div className="puzzle-nav">
         <NavLink to={prev && `/game/${prev.id}`} label={nl.previousPuzzle} symbol="←" />

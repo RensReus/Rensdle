@@ -1,77 +1,77 @@
 {
     "id": 0,
-    "start": "RENS",
+    "start": "Rens",
     "name": "rens",
     "hints": [
         {
             "id": 0,
             "hint": "Verander een letter voor iets dat kan uitkomen",
-            "answer": "wens"
+            "answer": "Wens"
         },
         {
             "id": 1,
             "hint": "Stop een ui in $prev$ en herschik voor dagelijkse berichtgeving",
-            "answer": "nieuws"
+            "answer": "Nieuws"
         },
         {
             "id": 2,
-            "hint": "$answer$baden komen vaak in het $prev$",
-            "answer": "bloed"
+            "hint": "Verander een letter in een S en herschik voor neerslag",
+            "answer": "Sneeuw"
         },
         {
             "id": 3,
-            "hint": "$prev$, $answer$ en tranen",
-            "answer": "Zweet"
+            "hint": "Vervang de eerste twee letters door één andere voor een vogel",
+            "answer": "Meeuw"
         },
         {
             "id": 4,
-            "hint": "De zanger van de vorige hint",
-            "answer": "Hazes"
+            "hint": "Een $prev$ leeft bij de $answer$",
+            "answer": "Zee"
         },
         {
             "id": 5,
-            "hint": "Dit getal vind je in $prev$",
-            "answer": "zes"
+            "hint": "Verander een letter om een getal te krijgen",
+            "answer": "Zes"
         },
         {
             "id": 6,
             "hint": "Een $prev$ op school is?",
-            "answer": "voldoende"
+            "answer": "Voldoende"
         },
         {
             "id": 7,
             "hint": "Als je $prev$ hebt gegeten krijg je geen?",
-            "answer": "trek"
+            "answer": "Trek"
         },
         {
             "id": 8,
             "hint": "$prev$$answer$, een soort snoepgoed",
-            "answer": "drop"
+            "answer": "Drop"
         },
         {
             "id": 9,
             "hint": "$prev$ is $answer$",
-            "answer": "zwart"
+            "answer": "Zwart"
         },
         {
             "id": 10,
             "hint": "Tegenovergestelde van $prev$",
-            "answer": "wit"
+            "answer": "Wit"
         },
         {
             "id": 11,
             "hint": "De kleur van een $answer$ is traditioneel $prev$",
-            "answer": "bruidsjurk"
+            "answer": "Bruidsjurk"
         },
         {
             "id": 12,
             "hint": "De draagster van een $prev$ ruikt met haar?",
-            "answer": "neus"
+            "answer": "Neus"
         },
         {
-            "id": 99,
+            "id": 13,
             "hint": "Een $answer$ heeft een grote $prev$",
-            "answer": "reus"
+            "answer": "Reus"
         }
     ]
 }

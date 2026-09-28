@@ -23,7 +23,7 @@ export function Game({ puzzle }: { puzzle: Puzzle }) {
 
   return (
     <>
-      <PuzzleHeader puzzle={puzzle} />
+      <PuzzleHeader puzzle={puzzle} onClear={game.reset} />
       <div className={tutorial ? 'game-area game-area--tutorial' : 'game-area'}>
         {tutorial && <TutorialBox tutorial={tutorial} direction={game.frontiers.direction} />}
         <Ladder

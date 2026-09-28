@@ -76,7 +76,10 @@ export function useGame(puzzle: Puzzle) {
 
   const revealAnswer = () => solveActive('answer')
 
+  /** Dev only: throw away all progress on this puzzle. */
+  const reset = () => setState({ links: {}, hinted: [], direction: 'down' })
+
   const statuses = puzzle.hints.map((h) => state.links[h.id]).filter((s): s is LinkStatus => s !== undefined)
 
-  return { frontiers, links: state.links, hinted: state.hinted, statuses, submit, flip, showHint, revealAnswer }
+  return { frontiers, links: state.links, hinted: state.hinted, statuses, submit, flip, showHint, revealAnswer, reset }
 }

@@ -1,10 +1,10 @@
-const capitalize = (word: string) => word.charAt(0).toLocaleUpperCase('nl') + word.slice(1).toLocaleLowerCase('nl')
+const upper = (word: string) => word.toLocaleUpperCase('nl')
 
 /** All user-facing text. */
 export const nl = {
   appName: 'Rensdle',
   puzzleNumber: (id: number) => `Rensdle #${id}`,
-  title: (start: string, end: string) => `Van ${capitalize(start)} tot ${capitalize(end)}`,
+  title: (start: string, end: string) => `Van ${upper(start)} tot ${upper(end)}`,
   previousPuzzle: 'Vorige puzzel',
   nextPuzzle: 'Volgende puzzel',
 

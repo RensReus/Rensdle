@@ -62,6 +62,9 @@ export function draftFromFile(file: string, puzzle: PuzzleFile): Draft {
 
 const isEmpty = (row: Row) => row.answer.trim() === '' && row.hint.trim() === ''
 
+/** Every word starts with a capital; the rest of each word is left as typed. */
+const capitalize = (text: string) => text.replace(/\S+/g, (word) => word.charAt(0).toLocaleUpperCase('nl') + word.slice(1))
+
 /** Compared to detect unsaved changes; empty rows don't count, they aren't saved either. */
 export function snapshot(draft: Draft): string {
   return JSON.stringify([draft.id, draft.name, draft.start, draft.rows.filter((r) => !isEmpty(r)).map((r) => [r.answer, r.hint])])
@@ -79,12 +82,12 @@ export function buildFile(draft: Draft): { puzzle: PuzzleFile } | { problems: st
     const error = hintError(row.hint)
     if (row.answer.trim() === '' || row.hint.trim() === '') problems.push(t.incompleteRow(i + 1))
     else if (error) problems.push(t.invalidRow(i + 1, error))
-    else hints.push({ id: hints.length, hint: fromShorthand(row.hint.trim()), answer: row.answer.trim() })
+    else hints.push({ id: hints.length, hint: fromShorthand(row.hint.trim()), answer: capitalize(row.answer.trim()) })
   })
   if (problems.length === 0 && hints.length === 0) problems.push(t.noHints)
   if (problems.length > 0) return { problems }
 
-  const meta: Omit<PuzzleFile, 'hints'> = { id: Number(draft.id), start: draft.start.trim(), name: draft.name.trim() }
+  const meta: Omit<PuzzleFile, 'hints'> = { id: Number(draft.id), start: capitalize(draft.start.trim()), name: draft.name.trim() }
   if (draft.about !== undefined) meta.about = draft.about
   if (draft.theme !== undefined) meta.theme = draft.theme
   // hints last, so they're at the bottom of the file

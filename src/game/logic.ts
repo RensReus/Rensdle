@@ -144,7 +144,7 @@ export function score(statuses: LinkStatus[]): number {
 
 export function shareText(opts: { id: number; start: string; end: string; statuses: LinkStatus[]; url: string }): string {
   return [
-    `${opts.start} → ${opts.end} [${score(opts.statuses)}%]`,
+    `${opts.start.toLocaleUpperCase('nl')} → ${opts.end.toLocaleUpperCase('nl')} [${score(opts.statuses)}%]`,
     `Rensdle #${opts.id}`,
     opts.url,
     '',
