@@ -3,11 +3,21 @@ import { nl } from '../i18n/nl'
 
 interface ConfirmModalProps {
   title: string
+  text?: string
+  confirmLabel?: string
+  cancelLabel?: string
   onConfirm: () => void
   onCancel: () => void
 }
 
-export function ConfirmModal({ title, onConfirm, onCancel }: ConfirmModalProps) {
+export function ConfirmModal({
+  title,
+  text = nl.confirmQuestion,
+  confirmLabel = nl.confirm,
+  cancelLabel = nl.cancel,
+  onConfirm,
+  onCancel,
+}: ConfirmModalProps) {
   const ref = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
@@ -21,7 +31,6 @@ export function ConfirmModal({ title, onConfirm, onCancel }: ConfirmModalProps) 
       className="modal"
       aria-labelledby="modal-title"
       onCancel={(e) => {
-        // Escape key: close through React state instead of the browser.
         e.preventDefault()
         onCancel()
       }}
@@ -33,13 +42,13 @@ export function ConfirmModal({ title, onConfirm, onCancel }: ConfirmModalProps) 
         <h2 id="modal-title" className="modal-title">
           {title}
         </h2>
-        <p className="modal-text">{nl.confirmQuestion}</p>
+        <p className="modal-text">{text}</p>
         <div className="modal-actions">
           <button type="button" className="btn-secondary" onClick={onCancel}>
-            {nl.cancel}
+            {cancelLabel}
           </button>
           <button type="button" className="btn-primary" onClick={onConfirm} autoFocus>
-            {nl.confirm}
+            {confirmLabel}
           </button>
         </div>
       </div>

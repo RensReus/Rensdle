@@ -1,6 +1,5 @@
 import type { Direction, Hint, LinkMap, LinkStatus } from '../types'
 
-/** Comparison form of a word: case, accents, spaces and hyphens are ignored. */
 export function normalize(text: string): string {
   return text
     .normalize('NFD')
@@ -27,7 +26,6 @@ function mulberry32(seed: number): () => number {
   }
 }
 
-/** Same seed, same order. If the result equals the input order, the next seed is tried. */
 export function seededShuffle<T>(items: T[], seed: number): T[] {
   const shuffle = (s: number) => {
     const random = mulberry32(s)
@@ -48,14 +46,13 @@ export function seededShuffle<T>(items: T[], seed: number): T[] {
 }
 
 export interface Frontiers {
-  /** Number of links (hints); words are indexed 0..n. */
+  /** Number of links; words are indexed 0..n. */
   n: number
   /** Words 0..top are known from the start word. */
   top: number
   /** Words bottom..n are known from the end word (bottom === n: only the end word). */
   bottom: number
   complete: boolean
-  /** The end word is not shown and must be typed. */
   endHidden: boolean
   direction: Direction
   activeRow: number | null
@@ -80,7 +77,6 @@ export function deriveFrontiers(links: LinkMap, n: number, chosen: Direction): F
   const onlyEndLeft = bottom === n && top === n - 1
   const endHidden = onlyEndLeft || (bottom === n && top === n - 2 && top >= 1 && chosen === 'down')
   const direction: Direction = onlyEndLeft ? 'down' : chosen
-  // One word left between both sides: typing it solves both links.
   const singleGap = !endHidden && bottom - top === 2
 
   let activeRow: number
@@ -143,7 +139,6 @@ export function ball(status: LinkStatus): string {
 export function score(statuses: LinkStatus[]): number {
   if (statuses.length === 0) return 0
   const points = statuses.reduce((sum, s) => sum + POINTS[s], 0)
-  // points * 100 is an integer, so the division is the only rounding step.
   return Math.floor((points * 100) / statuses.length)
 }
 

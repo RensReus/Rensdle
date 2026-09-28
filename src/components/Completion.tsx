@@ -10,7 +10,6 @@ async function copyToClipboard(text: string): Promise<boolean> {
     await navigator.clipboard.writeText(text)
     return true
   } catch {
-    // Fallback for browsers without the async clipboard API (or non-secure contexts).
     const area = document.createElement('textarea')
     area.value = text
     area.style.position = 'fixed'

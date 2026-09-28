@@ -1,9 +1,15 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Link, Navigate, Route, Routes, useParams } from 'react-router'
 import { getPuzzle, puzzles } from './data/puzzleParser'
+import { tutorialPuzzle } from './data/tutorial'
 import { Game } from './components/Game'
+import { WelcomeModal } from './components/WelcomeModal'
 import { nl } from './i18n/nl'
+import { text as editorText } from './editor/text'
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
+
+const Editor = import.meta.env.DEV ? lazy(() => import('./editor/Editor').then((m) => ({ default: m.Editor }))) : null
 
 export function App() {
   return (
@@ -12,11 +18,32 @@ export function App() {
         <Link to="/" className="logo">
           Rens<span>dle</span>
         </Link>
+        <div className="header-right">
+          {Editor && (
+            <Link to="/editor" className="dev-link">
+              {editorText.editor}
+            </Link>
+          )}
+          <Link to="/tutorial" className="help-link">
+            {nl.tutorial}
+          </Link>
+        </div>
       </header>
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game/:idOrName" element={<GamePage />} />
+          <Route path="/tutorial" element={<Game puzzle={tutorialPuzzle} />} />
+          {Editor && (
+            <Route
+              path="/editor"
+              element={
+                <Suspense>
+                  <Editor />
+                </Suspense>
+              }
+            />
+          )}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
@@ -33,8 +60,12 @@ function GamePage() {
   const { idOrName = '' } = useParams()
   const puzzle = getPuzzle(idOrName)
   if (!puzzle) return <NotFound />
-  // key resets all game state when navigating to another puzzle
-  return <Game key={puzzle.id} puzzle={puzzle} />
+  return (
+    <>
+      <WelcomeModal />
+      <Game key={puzzle.id} puzzle={puzzle} />
+    </>
+  )
 }
 
 function NotFound() {

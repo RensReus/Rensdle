@@ -1,4 +1,3 @@
-/** A puzzle file in /puzzles. */
 export interface PuzzleFile {
   id: number
   start: string
@@ -10,8 +9,7 @@ export interface PuzzleFile {
 }
 
 /**
- * One entry in the `hints` list of a puzzle file.
- * Hint `id` k links word k to word k+1 (word 0 is the start word).
+ * Hint `id` k links word k to word k+1 (word 0 is the start word):
  * `$prev$` is word k, `$answer$` is word k+1.
  */
 export interface Hint {
@@ -23,6 +21,7 @@ export interface Hint {
 export interface Puzzle extends PuzzleFile {
   /** start + every answer in chain order; the last one is the end word. */
   words: string[]
+  tutorial?: boolean
 }
 
 export type Direction = 'down' | 'up'

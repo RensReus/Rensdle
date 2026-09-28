@@ -8,16 +8,18 @@ interface LadderProps {
   puzzle: Puzzle
   frontiers: Frontiers
   hinted: number[]
+  showHelp: boolean
+  allowFlip: boolean
   onSubmit: (value: string) => boolean
   onFlip: () => void
   onHint: () => void
   onReveal: () => void
 }
 
-export function Ladder({ puzzle, frontiers: f, hinted, onSubmit, onFlip, onHint, onReveal }: LadderProps) {
+export function Ladder({ puzzle, frontiers: f, hinted, showHelp, allowFlip, onSubmit, onFlip, onHint, onReveal }: LadderProps) {
   const current = currentRow(f)
   // Clicking the unanswered row at the other end of the gap flips the direction.
-  const flipRow = !f.canFlip ? null : f.direction === 'up' ? f.top + 1 : f.endHidden ? f.n : f.bottom - 1
+  const flipRow = !f.canFlip || !allowFlip ? null : f.direction === 'up' ? f.top + 1 : f.endHidden ? f.n : f.bottom - 1
 
   return (
     <div className="ladder-col">
@@ -29,6 +31,7 @@ export function Ladder({ puzzle, frontiers: f, hinted, onSubmit, onFlip, onHint,
                 key={`active-${row}`}
                 word={word}
                 hintUsed={hinted.includes(f.activeLinks[0])}
+                showHelp={showHelp}
                 onSubmit={onSubmit}
                 onHint={onHint}
                 onReveal={onReveal}
@@ -71,7 +74,7 @@ export function Ladder({ puzzle, frontiers: f, hinted, onSubmit, onFlip, onHint,
           )
         })}
       </div>
-      {!f.complete && (
+      {!f.complete && allowFlip && (
         <button type="button" className="flip-btn" onClick={onFlip} disabled={!f.canFlip}>
           {f.direction === 'down' ? nl.flipUp : nl.flipDown}
         </button>
@@ -83,12 +86,13 @@ export function Ladder({ puzzle, frontiers: f, hinted, onSubmit, onFlip, onHint,
 interface ActiveRowProps {
   word: string
   hintUsed: boolean
+  showHelp: boolean
   onSubmit: (value: string) => boolean
   onHint: () => void
   onReveal: () => void
 }
 
-function ActiveRow({ word, hintUsed, onSubmit, onHint, onReveal }: ActiveRowProps) {
+function ActiveRow({ word, hintUsed, showHelp, onSubmit, onHint, onReveal }: ActiveRowProps) {
   const [value, setValue] = useState('')
   const [confirming, setConfirming] = useState<'hint' | 'answer' | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -109,7 +113,6 @@ function ActiveRow({ word, hintUsed, onSubmit, onHint, onReveal }: ActiveRowProp
         type="text"
         value={value}
         onChange={(e) => {
-          // A correct answer replaces this row, so only keep the text when it was wrong.
           if (!onSubmit(e.target.value)) setValue(e.target.value)
         }}
         aria-label={nl.answerLabel(letters)}
@@ -119,17 +122,19 @@ function ActiveRow({ word, hintUsed, onSubmit, onHint, onReveal }: ActiveRowProp
         autoCapitalize="off"
         spellCheck={false}
       />
-      <div className="row-actions">
-        {hintUsed ? (
-          <button type="button" className="icon-btn" onClick={() => setConfirming('answer')} title={nl.showAnswer} aria-label={nl.showAnswer}>
-            👁️
-          </button>
-        ) : (
-          <button type="button" className="icon-btn" onClick={() => setConfirming('hint')} title={nl.showHint} aria-label={nl.showHint}>
-            💡
-          </button>
-        )}
-      </div>
+      {showHelp && (
+        <div className="row-actions">
+          {hintUsed ? (
+            <button type="button" className="icon-btn" onClick={() => setConfirming('answer')} title={nl.showAnswer} aria-label={nl.showAnswer}>
+              👁️
+            </button>
+          ) : (
+            <button type="button" className="icon-btn" onClick={() => setConfirming('hint')} title={nl.showHint} aria-label={nl.showHint}>
+              💡
+            </button>
+          )}
+        </div>
+      )}
       {confirming && (
         <ConfirmModal
           title={confirming === 'hint' ? nl.showHint : nl.showAnswer}

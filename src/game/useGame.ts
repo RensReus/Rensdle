@@ -9,13 +9,13 @@ interface SavedState {
   direction: Direction
 }
 
-const storageKey = (id: number) => `rensdle:${id}`
+const storageKey = (puzzle: Puzzle) => `rensdle:${puzzle.tutorial ? 'tutorial' : puzzle.id}`
 const STATUSES: LinkStatus[] = ['clean', 'hint', 'answer']
 
 function loadState(puzzle: Puzzle): SavedState {
   const empty: SavedState = { links: {}, hinted: [], direction: 'down' }
   try {
-    const raw = localStorage.getItem(storageKey(puzzle.id))
+    const raw = localStorage.getItem(storageKey(puzzle))
     if (!raw) return empty
     const saved = JSON.parse(raw) as Partial<SavedState>
     const n = puzzle.hints.length
@@ -41,13 +41,13 @@ export function useGame(puzzle: Puzzle) {
 
   useEffect(() => {
     try {
-      localStorage.setItem(storageKey(puzzle.id), JSON.stringify(state))
+      localStorage.setItem(storageKey(puzzle), JSON.stringify(state))
     } catch {
-      // Storage unavailable (private mode): the game still works, just without saving.
+      // Storage unavailable: the game works, it just isn't saved.
     }
-  }, [puzzle.id, state])
+  }, [puzzle, state])
 
-  /** Solves every active link; the first (own) link may get a forced status. */
+  /** The first (own) link may get a forced status; the rest are always clean. */
   const solveActive = (ownStatus?: LinkStatus) =>
     setState((s) => {
       const f = deriveFrontiers(s.links, n, s.direction)

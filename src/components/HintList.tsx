@@ -1,5 +1,5 @@
 import type { Hint, LinkMap, LinkStatus, Puzzle } from '../types'
-import { renderHint, type Frontiers } from '../game/logic'
+import { renderHint, type Frontiers, type HintSegment } from '../game/logic'
 import { nl } from '../i18n/nl'
 
 interface HintListProps {
@@ -7,13 +7,14 @@ interface HintListProps {
   order: Hint[]
   frontiers: Frontiers
   links: LinkMap
-  hinted: number[]
+  highlighted: number[]
 }
 
-export function HintList({ puzzle, order, frontiers, links, hinted }: HintListProps) {
+export function HintList({ puzzle, order, frontiers, links, highlighted }: HintListProps) {
   const open = order.filter((h) => !links[h.id])
-  // Solved hints are listed in chain order so they read as the solution path.
+  // Chain order, so the solved hints read as the solution path.
   const solved = puzzle.hints.filter((h) => links[h.id])
+  const dim = open.some((h) => highlighted.includes(h.id))
 
   return (
     <>
@@ -21,7 +22,14 @@ export function HintList({ puzzle, order, frontiers, links, hinted }: HintListPr
         <section>
           <h3 className="section-title">{nl.findHint}</h3>
           {open.map((h) => (
-            <HintCard key={h.id} hint={h} puzzle={puzzle} frontiers={frontiers} highlighted={hinted.includes(h.id)} />
+            <HintCard
+              key={h.id}
+              hint={h}
+              puzzle={puzzle}
+              frontiers={frontiers}
+              highlighted={highlighted.includes(h.id)}
+              dimmed={dim && !highlighted.includes(h.id)}
+            />
           ))}
         </section>
       )}
@@ -43,25 +51,32 @@ interface HintCardProps {
   frontiers: Frontiers
   status?: LinkStatus
   highlighted?: boolean
+  dimmed?: boolean
 }
 
-function HintCard({ hint, puzzle, frontiers, status, highlighted }: HintCardProps) {
+function HintCard({ hint, puzzle, frontiers, status, highlighted, dimmed }: HintCardProps) {
   const segments = renderHint(hint, puzzle.words, status !== undefined, frontiers)
-  const classes = ['hint-card', status && 'hint-card--solved', highlighted && 'hint-card--highlighted']
+  const classes = ['hint-card', status && 'hint-card--solved', highlighted && 'hint-card--highlighted', dimmed && 'hint-card--dimmed']
 
   return (
     <div className={classes.filter(Boolean).join(' ')}>
-      <p className="hint-text">
-        {segments.map((s, i) => {
-          if (s.kind === 'text') return s.text
-          if (s.kind === 'blank') return <span key={i} className="hint-blank" role="img" aria-label={nl.unknownWord} />
-          return (
-            <span key={i} className={`hint-word hint-word--${s.placeholder}${s.current ? ' hint-word--current' : ''}`}>
-              {s.text}
-            </span>
-          )
-        })}
-      </p>
+      <HintText segments={segments} />
     </div>
+  )
+}
+
+export function HintText({ segments }: { segments: HintSegment[] }) {
+  return (
+    <p className="hint-text">
+      {segments.map((s, i) => {
+        if (s.kind === 'text') return s.text
+        if (s.kind === 'blank') return <span key={i} className="hint-blank" role="img" aria-label={nl.unknownWord} />
+        return (
+          <span key={i} className={`hint-word hint-word--${s.placeholder}${s.current ? ' hint-word--current' : ''}`}>
+            {s.text}
+          </span>
+        )
+      })}
+    </p>
   )
 }
