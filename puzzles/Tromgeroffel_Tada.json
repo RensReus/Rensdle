@@ -1,0 +1,62 @@
+{
+    "id": 1,
+    "start": "Tromgeroffel",
+    "name": "Tromgeroffel_Tada",
+    "hints": [
+        {
+            "id": 0,
+            "hint": "Voor $prev$ moet je op een trommel $answer$",
+            "answer": "Slaan"
+        },
+        {
+            "id": 1,
+            "hint": "Rijmt op $prev$ en kan over je wang rollen",
+            "answer": "Traan"
+        },
+        {
+            "id": 2,
+            "hint": "Vervang de klinkers voor een soort stoel",
+            "answer": "Troon"
+        },
+        {
+            "id": 3,
+            "hint": "Iemand die op een $prev$ zit draagt vaak een $answer$",
+            "answer": "Kroon"
+        },
+        {
+            "id": 4,
+            "hint": "Een $prev$ is meestal gemaakt van $answer$",
+            "answer": "Goud"
+        },
+        {
+            "id": 5,
+            "hint": "Wie $answer$ wordt krijgt $prev$",
+            "answer": "Eerste"
+        },
+        {
+            "id": 6,
+            "hint": "De $prev$ Romeinse keizer",
+            "answer": "Augustus"
+        },
+        {
+            "id": 7,
+            "hint": "$prev$ is the achtste $answer$",
+            "answer": "Maand"
+        },
+        {
+            "id": 8,
+            "hint": "Een $answer$ wordt vaak geschreven als Dag-$prev$",
+            "answer": "Datum"
+        },
+        {
+            "id": 9,
+            "hint": "Meervoud van $prev$",
+            "answer": "Data"
+        },
+        {
+            "id": 10,
+            "hint": "Herschik $prev$ voor een spreuk waarbij je iets tevoorschijn tovert",
+            "answer": "Tada"
+        }
+    ]
+}

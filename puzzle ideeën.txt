@@ -5,7 +5,15 @@ veel voorkomende woorden zoals basis zoals ster
 rest -> ernst, bobbie en de ...
 
 
-
 bloed/zweet/tranen
 hazes
 haas, verwijder middelste letter dan klinkt het als dit dier
+
+
+Tutorial
+Welkom bij Rensdle, een woordladder spel.
+Het bestaat uit 2 delen.
+(Links) Een lijst met woorden die je moet invullen.
+En (rechts) een lijst met hints.
+Het gekleurde woord in de hint 2e
+De hints zijn geschud en er is altijd maar 1 hint relevant.

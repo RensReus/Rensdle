@@ -50,6 +50,7 @@ export function Editor() {
   const [pending, setPending] = useState<(() => void) | null>(null)
   const [solvedView, setSolvedView] = useState(true)
   const [direction, setDirection] = useState<Direction>('down')
+  const [reorder, setReorder] = useState(false)
 
   const inputs = useRef(new Map<string, HTMLInputElement>())
   const focusNext = useRef<string | null>(null)
@@ -290,6 +291,9 @@ export function Editor() {
         <section>
           <div className="editor-head">
             <h3>{t.hints}</h3>
+            <button type="button" className="editor-reorder-toggle" aria-pressed={reorder} title={t.reorder} onClick={() => setReorder((r) => !r)}>
+              {t.reorder}
+            </button>
           </div>
           <div className="editor-line editor-row">
             <input
@@ -298,7 +302,12 @@ export function Editor() {
               aria-label={t.start}
               onChange={(e) => update({ start: e.target.value })}
               onKeyDown={(e) => {
-                if (e.key !== 'Enter' && e.key !== 'ArrowDown') return
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  insertRow(0)
+                  return
+                }
+                if (e.key !== 'ArrowDown') return
                 e.preventDefault()
                 inputs.current.get(`${draft.rows[0].key}:answer`)?.focus()
               }}
@@ -325,9 +334,20 @@ export function Editor() {
                   onChange={(e) => setRow(i, withHint(row, e.target.value))}
                   onKeyDown={(e) => onRowKeyDown(e, i, 'hint')}
                 />
-                <button type="button" className="editor-remove" tabIndex={-1} title={t.remove} onClick={() => removeRow(i)}>
-                  ×
-                </button>
+                {reorder ? (
+                  <span className="editor-move">
+                    <button type="button" tabIndex={-1} disabled={i === 0} title={t.moveUp} onClick={() => moveRow(i, -1, 'answer')}>
+                      ↑
+                    </button>
+                    <button type="button" tabIndex={-1} disabled={i === n - 1} title={t.moveDown} onClick={() => moveRow(i, 1, 'answer')}>
+                      ↓
+                    </button>
+                  </span>
+                ) : (
+                  <button type="button" className="editor-remove" tabIndex={-1} title={t.remove} onClick={() => removeRow(i)}>
+                    ×
+                  </button>
+                )}
               </div>
             )
           })}

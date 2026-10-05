@@ -23,6 +23,9 @@ export const text = {
   hint: 'Hint',
   addHint: 'Add hint',
   remove: 'Remove hint',
+  reorder: 'Reorder',
+  moveUp: 'Move up',
+  moveDown: 'Move down',
   help: '_p previous · _a answer · Enter new hint · Alt+↑/↓ move · Backspace on empty row remove · Ctrl+S save',
 
   unsavedTitle: 'Unsaved changes',

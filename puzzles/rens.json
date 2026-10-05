@@ -10,7 +10,7 @@
         },
         {
             "id": 1,
-            "hint": "Stop een ui in $prev$ en herschik voor dagelijkse berichtgeving",
+            "hint": "Stop ui in $prev$ en herschik voor dagelijkse berichtgeving",
             "answer": "Nieuws"
         },
         {
